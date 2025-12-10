@@ -1,18 +1,18 @@
-from prod import Product, Laptop, Phone
+from prod import Product, Laptop, Phone, Headphone, Mouse, Keyboard, HardDisk
 
-if __name__ == "__main__":
-    p1 = Product("Keyboard", 50, 5, "2025-01-01")
-    p2 = Laptop("Dell Inspiron", 1500, 2, "2025-02-10", 3.5)
-    p3 = Phone("iPhone 13", 3500, 1, "2025-03-15", is_broken=True)
-    p4 = Product.create_from_string("Mouse,20,4,2025-02-01")
+print("\n===== إنشاء المنتجات =====")
 
-    p1.apply_discount()
-    p2.apply_discount()
-    p3.apply_discount()
+p1 = Phone("iPhone 12", 3000, 2200, 1, condition="used")
+p2 = Laptop("Dell Inspiron", 4500, 3000, 3, condition="new", cpu_speed=3.0)
+p3 = Headphone("Sony WH-1000XM4", 800, 2)
+p4 = Mouse("Logitech G102", 150, 5)
+p5 = Keyboard("Redragon K552", 200, 2)
+p6 = HardDisk("WD 1TB", 350, 1)
 
-    print("\n🧾 قائمة المنتجات:")
-    for item in Product.all:
-        print(item)
+print("\n===== خصم شراء قطعتين =====")
+p3.apply_pair_discount()
+p5.apply_pair_discount()
 
-    print("\n💰 الإجمالي:", p1.calculate_total_price())
-    print("📦 كل المنتجات:", Product.all)
+print("\n===== كل المنتجات =====")
+for item in Product.all:
+    print(item)
