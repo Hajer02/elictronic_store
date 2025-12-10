@@ -1,23 +1,28 @@
-# main.py
-from prod import Product, Laptop, Phone, Headphone, Mouse, Keyboard, HardDisk
+from prod import *
+from smart_discount import SmartDiscountEngine
 
 def run_inventory_logic():
-    output = ""
+    output = "\n=== نظام الخصومات الذكي ===\n"
 
-    output += "\n===== إنشاء المنتجات =====\n"
-    p1 = Phone("iPhone 12", 3000, 2200, 1, condition="used")
-    p2 = Laptop("Dell Inspiron", 4500, 3000, 3, condition="new", cpu_speed=3.0)
-    p3 = Headphone("Sony WH-1000XM4", 800, 2)
-    p4 = Mouse("Logitech G102", 150, 5)
-    p5 = Keyboard("Redragon K552", 200, 2)
-    p6 = HardDisk("WD 1TB", 350, 1)
+    engine = SmartDiscountEngine()
 
-    output += "\n===== خصم شراء قطعتين =====\n"
-    p3.apply_pair_discount()
-    p5.apply_pair_discount()
+    products = [
+        Phone("iPhone 12", 3000, 2200, 1, condition="used"),
+        Laptop("Dell Inspiron", 5000, 3500, 3, condition="new"),
+        Headphone("Sony WH-1000XM4", 1200, 800, 5)
+    ]
 
-    output += "\n===== كل المنتجات =====\n"
-    for item in Product.all:
-        output += f"{item}\n"
+    for p in products:
+        final_price, msgs = engine.apply(p)
+
+        output += f"\n{p.name}\n"
+        output += f"السعر الأصلي: {p.price}\n"
+        output += "الخصومات المطبقة:\n"
+
+        for m in msgs:
+            output += f"{m}\n"
+
+        output += f"💰 السعر النهائي: {round(final_price, 2)}\n"
+        output += "---------------------------\n"
 
     return output

@@ -17,6 +17,8 @@ class Product:
         self.price = price
         self.quantity = quantity
         self.condition = condition  # new / used
+        
+        self.days_in_stock = 30  # لاحقاً اجعليها متغيرة
 
         Product.all.append(self)
 
