@@ -1,9 +1,6 @@
 
 import arabic_reshaper
 from bidi.algorithm import get_display
-# =====================================================
-#                 CLASS Product (BASE)
-# =====================================================
 
 class Product:
     pay_rate = 0.8        # خصم افتراضي 20%
@@ -17,37 +14,36 @@ class Product:
         self.price = price
         self.quantity = quantity
         self.condition = condition  # new / used
-        
-        self.days_in_stock = 30  # لاحقاً اجعليها متغيرة
+
+       
 
         Product.all.append(self)
 
         self.check_low_stock()
 
-    # -----------------------------------------------------
+ 
     def calculate_total_price(self):
         return self.price * self.quantity
 
-    # -----------------------------------------------------
+    
     def apply_discount(self):
         self.price = self.price * self.pay_rate
 
-    # -----------------------------------------------------
+    
     def apply_pair_discount(self):
         if self.quantity >= 2:
             self.price = self.price * 0.90
             print(f"✔ تم تطبيق خصم شراء قطعتين على {self.name}")
 
-    # -----------------------------------------------------
+    
     def check_low_stock(self):
         if self.quantity <= 2:
             print(f"⚠ تحذير: المخزون منخفض للمنتج: {self.name}")
 
-    # -----------------------------------------------------
     def __repr__(self):
         return f"{self.name} | Price: {self.price} | Qty: {self.quantity}"
 
-    # -----------------------------------------------------
+   
     @classmethod
     def create_from_string(cls, data_string):
         parts = data_string.split(",")
@@ -57,10 +53,6 @@ class Product:
         condition = parts[3]
         return cls(name, price, qty, condition)
 
-
-# =====================================================
-#                   CLASS Laptop
-# =====================================================
 
 class Laptop(Product):
     pay_rate = 0.9
@@ -72,10 +64,6 @@ class Laptop(Product):
         self.price_used = price_used
         self.cpu_speed = cpu_speed
 
-
-# =====================================================
-#                   CLASS Phone
-# =====================================================
 
 class Phone(Product):
 
@@ -95,9 +83,6 @@ class Phone(Product):
             super().apply_discount()
 
 
-# =====================================================
-#     باقي الكلاسات (فاضية لأنها تورث فقط) مع pass
-# =====================================================
 
 class Headphone(Product):
     pass
