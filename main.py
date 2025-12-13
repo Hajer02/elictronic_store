@@ -1,18 +1,35 @@
-from prod import Product, Laptop, Phone
+from prod import Product, Laptop, Phone, Headphone, Mouse, Keyboard, HardDisk
 
-if __name__ == "__main__":
-    p1 = Product("Keyboard", 50, 5, "2025-01-01")
-    p2 = Laptop("Dell Inspiron", 1500, 2, "2025-02-10", 3.5)
-    p3 = Phone("iPhone 13", 3500, 1, "2025-03-15", is_broken=True)
-    p4 = Product.create_from_string("Mouse,20,4,2025-02-01")
+def run_inventory_logic():
+    output = "" 
+    output += "\n===== إنشاء المنتجات =====\n"
 
-    p1.apply_discount()
-    p2.apply_discount()
-    p3.apply_discount()
+    p1 = Phone("iPhone 12", 3000, 2200, 1, condition="used")
+    p2 = Laptop("Dell Inspiron", 5000, 3500, 3, condition="new", cpu_speed=3.0)
+    p3 = Headphone("Sony WH-1000XM4", 1200, 800, 1)
+    p4 = Mouse("Logitech G102", 150, 100, 5)
 
-    print("\n🧾 قائمة المنتجات:")
-    for item in Product.all:
-        print(item)
+    products = [p1, p2, p3, p4]
 
-    print("\n💰 الإجمالي:", p1.calculate_total_price())
-    print("📦 كل المنتجات:", Product.all)
+    # تطبيق الخصومات
+    for item in products:
+        before = item.price
+        item.apply_discount()
+        after = item.price
+
+        output += f"\n{item.name}: السعر قبل = {before} ، بعد الخصم = {after}\n"
+
+    # تطبيق خصم شراء قطعتين
+    for item in products:
+        before = item.price
+        item.apply_pair_discount()
+
+        if item.quantity >= 2:
+            output += f"✔ تم تطبيق خصم زوجي على {item.name}\n"
+
+    # عرض ملخص نهائي
+    output += "\n===== ملخص المنتجات =====\n"
+    for item in products:
+        output += f"{item}\n"
+
+    return output
