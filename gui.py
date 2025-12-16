@@ -1,5 +1,10 @@
+# gui.py
 import tkinter as tk
+<<<<<<< HEAD
 from tkinter import simpledialog, messagebox
+=======
+from main import run_inventory_logic  # 👈 استيراد الدالة من main
+>>>>>>> 4e425c2c18938025fbbf5b1ba404efd9fdbbe3e8
 
 from main import (
     create_sample_inventory,
@@ -18,6 +23,7 @@ from prod import Phone, Laptop, Headphone, Mouse, Keyboard, HardDisk
 # ==========================================
 window = tk.Tk()
 window.title("إدارة المخزون")
+<<<<<<< HEAD
 window.geometry("650x520")
 
 
@@ -263,5 +269,30 @@ tk.Button(btn_frame, text="إضافة منتج", command=btn_add_product, width=
     .grid(row=2, column=1, padx=5, pady=5)
 
 tk.Button(window, text="خروج", command=window.quit, width=15).pack(pady=8)
+=======
+window.geometry("500x400")
+
+# عنوان
+label = tk.Label(window, text="نظام إدارة المخزون", font=("Arial", 16))
+label.pack(pady=10)
+
+# صندوق النصوص لعرض النتائج
+text_box = tk.Text(window, wrap=tk.WORD, height=15, width=55)
+text_box.pack(pady=10)
+
+# دالة لعرض النتائج عند الضغط على الزر
+def show_results():
+    results = run_inventory_logic()   # استدعاء كود main
+    text_box.delete(1.0, tk.END)      # مسح القديم
+    text_box.insert(tk.END, results)  # عرض النتائج
+
+# زر لعرض النتائج
+run_button = tk.Button(window, text="عرض النتائج", command=show_results)
+run_button.pack(pady=5)
+
+# زر خروج
+exit_button = tk.Button(window, text="خروج", command=window.quit)
+exit_button.pack(pady=5)
+>>>>>>> 4e425c2c18938025fbbf5b1ba404efd9fdbbe3e8
 
 window.mainloop()
